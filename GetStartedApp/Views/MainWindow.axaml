@@ -7,7 +7,7 @@
         x:Class="GetStartedApp.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="GetStartedApp">
+        Title="Todo App">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -15,16 +15,6 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <StackPanel VerticalAlignment="Center">
-        <TextBlock Margin="5"
-                   FontSize="24" 
-                   HorizontalAlignment="Center"
-                   Text="Temperature Converter">
-        </TextBlock>
-        
-        <TextBox Margin="100 5" Text="{Binding Celsius}" />
-        <TextBox Margin="100 5" Text="{Binding Fahrenheit}" IsReadOnly="True"/>
-        <Button Command="{Binding ConvertCommand}" HorizontalAlignment="Center">Calculate</Button>
-    </StackPanel>
+    <StackPanel VerticalAlignment="Center"/>
 
 </Window>

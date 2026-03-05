@@ -1,30 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using GetStartedApp.Models;
 
 namespace GetStartedApp.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public string Greeting { get; } = "Welcome to Avalonia!";
+    public TodoList TodoList { get; }
 
     [ObservableProperty]
-    private string _celsius = "0";
+    private string _newItemContent;
 
-    [ObservableProperty]
-    private string _fahrenheit = "0";
-
-    [RelayCommand]
-    private void Convert()
+    public MainWindowViewModel(TodoList todoList)
     {
-        if (double.TryParse(Celsius, out double c))
-        {
-            var f = c * (9d / 5d) + 32;
-            Fahrenheit = f.ToString("0.0");
-        }
-        else
-        {
-            Celsius = "0";
-            Fahrenheit = "0";
-        }
+        TodoList = todoList;
     }
+    
 }
