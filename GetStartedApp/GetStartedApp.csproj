@@ -24,4 +24,10 @@
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\TodoItemView.axaml.cs">
+        <DependentUpon>TodoItemView.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>
