@@ -15,16 +15,18 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <StackPanel VerticalAlignment="Center">
-        <TextBlock Margin="5"
-                   FontSize="24" 
-                   HorizontalAlignment="Center"
-                   Text="Temperature Converter">
-        </TextBlock>
-        
-        <TextBox Margin="100 5" Text="{Binding Celsius}" />
-        <TextBox Margin="100 5" Text="{Binding Fahrenheit}" IsReadOnly="True"/>
-        <Button Command="{Binding ConvertCommand}" HorizontalAlignment="Center">Calculate</Button>
-    </StackPanel>
+    <ListBox ItemsSource="{Binding People}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Name: " Margin="10,0,10,0"/>
+                    <TextBlock Text="{Binding Name}" Margin="0,0,10,0"/>
+                    <TextBlock Text="Age: " Margin="10,0,10,0"/>
+                    <TextBlock Text="{Binding Age}"/>
+                    
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
 
 </Window>
