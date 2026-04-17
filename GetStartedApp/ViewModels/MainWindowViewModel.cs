@@ -1,22 +1,40 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GetStartedApp.Models;
+using GetStartedApp.Repositories;
 
 namespace GetStartedApp.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public TodoList TodoList { get; }
+    private readonly ITodoRepository _repository;
 
     [ObservableProperty]
     private string _newItemContent = string.Empty;
 
-    public ObservableCollection<TodoItem> Items => TodoList.TodoItems;
+    public ObservableCollection<TodoItem> Items { get; } = new();
 
-    public MainWindowViewModel(TodoList todoList)
+    public MainWindowViewModel(ITodoRepository repository)
     {
-        TodoList = todoList;
+        _repository = repository;
+        LoadItems();
+    }
+
+    private void LoadItems()
+    {
+        Items.Clear();
+        foreach (var item in _repository.GetAll())
+        {
+            item.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(TodoItem.Completed) && sender is TodoItem changed)
+                {
+                    _repository.UpdateCompleted(changed.Id, changed.Completed);
+                }
+            };
+            Items.Add(item);
+        }
     }
 
     [RelayCommand]
@@ -24,11 +42,24 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         if (!string.IsNullOrWhiteSpace(NewItemContent))
         {
-            TodoList.Add(new TodoItem(NewItemContent));
+            var item = new TodoItem(NewItemContent);
+            _repository.Add(item);
+            item.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(TodoItem.Completed) && sender is TodoItem changed)
+                {
+                    _repository.UpdateCompleted(changed.Id, changed.Completed);
+                }
+            };
+            Items.Add(item);
             NewItemContent = string.Empty;
         }
     }
 
     [RelayCommand]
-    private void RemoveItem(TodoItem item) => TodoList.Remove(item);
+    private void RemoveItem(TodoItem item)
+    {
+        _repository.Delete(item.Id);
+        Items.Remove(item);
+    }
 }

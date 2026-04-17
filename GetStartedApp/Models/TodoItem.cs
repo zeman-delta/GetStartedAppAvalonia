@@ -10,8 +10,11 @@ public class TodoItem : INotifyPropertyChanged
     private string? _description;
     private bool _completed;
 
+    public Guid Id { get; set; }
+
     public TodoItem(string title, string? description = null, bool completed = false)
     {
+        Id = Guid.NewGuid();
         _title = title ?? throw new ArgumentNullException(nameof(title));
         _description = description;
         _completed = completed;
