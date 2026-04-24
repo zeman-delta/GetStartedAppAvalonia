@@ -30,3 +30,17 @@
 7. Test preview
    - MainWindow.axaml
    - Text="{Binding Greeting}" → "Nice preview!"
+
+---
+
+balíky:
+
+DotNetEnv
+Microsoft.Extensions.DependencyInjection
+
+1. vytvořit .env a .env.example
+2. upravit docker-compose.yaml
+3. vytvořit repository interface
+4. repository bere connection string v konstruktoru
+5. vytvořit Services.cs
+6. zaregistrovat Services do App
