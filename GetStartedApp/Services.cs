@@ -10,7 +10,7 @@ public class Services
     
     public static ServiceProvider ServiceCollection()
     {
-        Env.Load();
+        Env.TraversePath().Load();
         var services = new ServiceCollection();
 
         // services

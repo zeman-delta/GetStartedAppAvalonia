@@ -38,6 +38,8 @@ public class TodoRepository : ITodoRepository
             items.Add(item);
         }
 
+        _connection.Close();
+        
         return items;
     }
 
@@ -55,6 +57,8 @@ public class TodoRepository : ITodoRepository
         command.Parameters.AddWithValue("completed", item.Completed);
         
         command.ExecuteNonQuery();
+        
+        _connection.Close();
     }
 
     public void Delete(Guid id)
@@ -69,6 +73,8 @@ public class TodoRepository : ITodoRepository
         command.Parameters.AddWithValue("deletedAt", DateTime.Today);
 
         command.ExecuteNonQuery();
+        
+        _connection.Close();
     }
 
     public void UpdateCompleted(Guid id, bool completed)
@@ -83,5 +89,7 @@ public class TodoRepository : ITodoRepository
         command.Parameters.AddWithValue("completed", completed);
 
         command.ExecuteNonQuery();
+        
+        _connection.Close();
     }
 }
