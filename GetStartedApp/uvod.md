@@ -35,7 +35,7 @@
 
 balíky:
 
-DotNetEnv
+DotNetEnv  
 Microsoft.Extensions.DependencyInjection
 
 1. vytvořit .env a .env.example
