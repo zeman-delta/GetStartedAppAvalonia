@@ -15,8 +15,14 @@ public class Services
 
         // services
         services.AddTransient<MainWindowViewModel>();
+        
+        string host = Env.GetString("HOST");
+        string port = Env.GetString("PORT");
+        string database = Env.GetString("DATABASE");
+        string user = Env.GetString("USERNAME");
+        string pass = Env.GetString("PASSWORD");
         var connectionString =
-            $"Host={Env.GetString("HOST")};Port={Env.GetString("PORT")};Database={Env.GetString("DATABASE")};Username={Env.GetString("USERNAME")};Password={Env.GetString("PASSWORD")}";
+            $"Host={host};Port={port};Database={database};Username={user};Password={pass}";
         services.AddSingleton<ITodoRepository>(new TodoRepository(connectionString));
 
         return services.BuildServiceProvider();
